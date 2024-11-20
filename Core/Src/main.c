@@ -306,13 +306,23 @@ void accessSharedData(void)
   }
 
   // Simulasi operasi baca/tulis selama 500 ms
-  osDelay(500);
+  SimulateReadWriteOperation();
 
   // Mengatur kembali flag ke 1
   startFlag = 1;
 
   // Mematikan LED biru
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+}
+
+void SimulateReadWriteOperation(void) {
+    volatile uint32_t delay_count = 0;
+    const uint32_t delay_target = 1000000; // Adjust this value to approximate 500 ms
+
+    // Dummy loop to simulate processing time
+    for (delay_count = 0; delay_count < delay_target; delay_count++) {
+        __asm("nop"); // No Operation: Keeps the processor busy without changing code behavior
+    }
 }
 /**
   * @brief  This function is executed in case of error occurrence.
